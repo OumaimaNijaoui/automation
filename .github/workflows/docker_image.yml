@@ -1,0 +1,32 @@
+name: Docker_Image CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+
+jobs: 
+  build:
+    runs-on: ubuntu-22.04
+     
+    steps:
+      - uses: actions/checkout@v3
+      - name: Log in to Docker Hub
+        uses: docker/oumaimanijaoui/oumaima_nijaoui
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Build the Docker image 
+        run: docker build . --file Dockefile --tag OumaimaNijaoui/Oumaima_virtualisation:${GITHUB_SHA::8}
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME}}/oumaimanijaoui/oumaima_nijaoui:${GITHUB_SHA::8}
+
