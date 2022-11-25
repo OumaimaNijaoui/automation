@@ -13,9 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build & Push Image
+    - name: Build
       run: |
         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "oumaimanijaoui" --password-stdin
         docker image build -t dab8106/python:latest .
-        docker tag dab8106/python:latest oumaimanijaoui:newww
-        docker push oumaimanijaoui:oumaimanijaoui:newww
+       
+    - name: Push 
+      run: |
+         docker tag dab8106/python:latest oumaimanijaoui:newww
+         docker push ${{secrets.DOCKER_USER}}/oumaimanijaoui/oumaima_nijaoui
