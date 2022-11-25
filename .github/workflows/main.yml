@@ -21,4 +21,4 @@ jobs:
     - name: Push 
       run: |
          docker tag dab8106/python:latest oumaimanijaoui:newww
-         docker push oumaimanijaoui:newww
+         docker push ${{secrets.DOCKER_USER}}  oumaimanijaoui:newww
