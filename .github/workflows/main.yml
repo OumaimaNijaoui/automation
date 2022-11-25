@@ -17,4 +17,4 @@ jobs:
       run: |
         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "oumaimanijaoui" --password-stdin
         docker image build -t dab8106/python:latest .
-        docker push dab8106/python:latest
+        docker push oumaimanijaoui/oumaima_nijaoui:latest
