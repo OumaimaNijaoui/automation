@@ -1,0 +1,41 @@
+name: Docker_Image CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+
+jobs: 
+  build:
+    runs-on: ubuntu-22.04
+     
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+         
+      - name: Install dependencies
+        run: |
+          python -m pip install 
+          pip install -r requirements.txt
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+
+      - name: Build and Push Docker Image 
+        uses: docker/build-push-action@v3
+        with:
+          image: oumaimanijaoui/oumaima_nijaoui
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME}}
+          password: ${{ secrets.DOCKER_PASSWORD}}
+          
+     
+
