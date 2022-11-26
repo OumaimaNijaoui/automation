@@ -22,15 +22,15 @@ pipeline {
                 sh 'docker build -t oumaimanijaoui/devops:mytag .'
             }
         }
+
         stage('Push Image'){
             steps{
                 script{
                     withCredentials([string(credentialsId: 'docker_hub_id', variable: 'docker_hub_pwd')]) {
                         sh 'docker logout'
                        
-                    sh ' docker login -u oumaimanijaoui -p ${docker_hub_pwd}'
-                    
-                   sh'docker push  oumaimanijaoui/devops:mytag '
+                   sh 'sudo docker push oumaimanijaoui/devops:mytag'           
+                  echo 'Push Image Completed'  
 
 }
                 }
