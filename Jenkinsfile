@@ -16,7 +16,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                
-                sh 'docker build -t oumaimanijaoui/devops:mytag.'
+                sh 'docker build -t oumaimanijaoui/devops:mytag .'
             }
         }
         stage('Push Image'){
