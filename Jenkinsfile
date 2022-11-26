@@ -6,32 +6,34 @@ pipeline {
 
 
     stages {
-        stage('SCM Checkout') {
-            steps {
-                git 'https://github.com/OumaimaNijaoui/automation.git'
-                
+        stage('build app'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'docker_hub_oumaima', url: 'https://github.com/OumaimaNijaoui/automation.git']]])
             }
         }
+       
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t jenkinsImage:latest .'
+               
+                sh 'docker build -t oumaimanijaoui/devops:1.0.0 .'
             }
         }
-        stage('Login to Dockerhub') {
-          steps {
-             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
-        }
-      }
-      stage('Push image'){
+        stage('Push Image'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'docker_hub_id', variable: 'docker_hub_pwd')]) {
+                        sh 'docker logout'
+                    sh ' docker login -u oumaimanijaoui -p ${docker_hub_pwd}'
+                    
+                    sh 'docker push  oumaimanijaoui/devops:1.0.0'
 
-        steps{
-            sh 'docker push jenkinsImage:latest'
+}
+                }
+            }
         }
-      }
+       
+      
         }
 
     }
-        
-
-
