@@ -26,7 +26,7 @@ pipeline {
                         sh 'docker logout'
                     sh ' docker login -u oumaimanijaoui -p ${docker_hub_pwd}'
                     
-                    sh 'docker push  oumaimanijaoui/devops:1.0.0'
+                   dockerImage.push()
 
 }
                 }
