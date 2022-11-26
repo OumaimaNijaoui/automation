@@ -24,6 +24,7 @@ pipeline {
                 script{
                     withCredentials([string(credentialsId: 'docker_hub_id', variable: 'docker_hub_pwd')]) {
                         sh 'docker logout'
+                        sh 'docker network prune'
                     sh ' docker login -u oumaimanijaoui -p ${docker_hub_pwd}'
                     
                    sh'docker push  oumaimanijaoui/devops:mytag '
