@@ -4,8 +4,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker_hub_oumaima')
-        dockerImage = '' 
-
+        
     }
 
 
@@ -31,7 +30,7 @@ pipeline {
                        
                     sh ' docker login -u oumaimanijaoui -p ${docker_hub_pwd}'
                     
-                    dockerImage.push()
+                   sh'docker push  oumaimanijaoui/devops:mytag '
 
 }
                 }
