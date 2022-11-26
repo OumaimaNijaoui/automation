@@ -29,7 +29,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'docker_hub_id', variable: 'docker_hub_pwd')]) {
 
                        
-                   sh 'sudo docker push oumaimanijaoui/devops:mytag'           
+                   sh ' docker push oumaimanijaoui/devops:mytag'           
                   echo 'Push Image Completed'  
 
 }
